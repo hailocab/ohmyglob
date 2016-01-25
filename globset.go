@@ -44,7 +44,6 @@ func (g globSetImpl) MatchingGlob(b []byte) Glob {
 		glob := g[i]
 		matches := glob.Match(b)
 		if matches {
-			Logger.Tracef("[ohmyglob:GlobSet] %s matched to %s", string(b), glob.String())
 			return glob
 		}
 	}
@@ -56,7 +55,6 @@ func (g globSetImpl) AllMatchingGlobs(b []byte) []Glob {
 	result := []Glob(nil)
 	for _, glob := range g {
 		if glob.Match(b) {
-			Logger.Tracef("[ohmyglob:GlobSet] %s matched to %s", string(b), glob.String())
 			result = append(result, glob)
 		}
 	}

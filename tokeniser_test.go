@@ -30,7 +30,6 @@ func testTokenRun(t *testing.T, tokeniser *globTokeniser, e expectations) {
 
 func TestTokeniser_Simple(t *testing.T) {
 	input := `abcdef abcdef abcdef`
-	Logger.Tracef("[ohmyglob:TestTokeniser_Simple] Testing \"%s\"", input)
 	tokeniser := newGlobTokeniser(strings.NewReader(input), DefaultOptions)
 
 	e := expectations{
@@ -41,7 +40,6 @@ func TestTokeniser_Simple(t *testing.T) {
 
 func TestTokeniser_Wildcard(t *testing.T) {
 	input := `part1*part2`
-	Logger.Tracef("[ohmyglob:TestTokeniser_Wildcard] Testing \"%s\"", input)
 	tokeniser := newGlobTokeniser(strings.NewReader(input), DefaultOptions)
 
 	e := expectations{
@@ -54,7 +52,6 @@ func TestTokeniser_Wildcard(t *testing.T) {
 
 func TestTokeniser_Globstar(t *testing.T) {
 	input := `part1**part2****`
-	Logger.Tracef("[ohmyglob:TestTokeniser_Globstar] Testing \"%s\"", input)
 	tokeniser := newGlobTokeniser(strings.NewReader(input), DefaultOptions)
 
 	e := expectations{
@@ -69,7 +66,6 @@ func TestTokeniser_Globstar(t *testing.T) {
 
 func TestTokeniser_AnyCharacter(t *testing.T) {
 	input := `part1?part2`
-	Logger.Tracef("[ohmyglob:TestTokeniser_AnyCharacter] Testing \"%s\"", input)
 	tokeniser := newGlobTokeniser(strings.NewReader(input), DefaultOptions)
 
 	e := expectations{
@@ -82,7 +78,6 @@ func TestTokeniser_AnyCharacter(t *testing.T) {
 
 func TestTokeniser_Separator(t *testing.T) {
 	input := `part1/part2`
-	Logger.Tracef("[ohmyglob: TestTokeniser_Separator] Testing \"%s\"", input)
 	tokeniser := newGlobTokeniser(strings.NewReader(input), DefaultOptions)
 
 	e := expectations{
@@ -95,7 +90,6 @@ func TestTokeniser_Separator(t *testing.T) {
 
 func TestTokeniser_CustomSeparator(t *testing.T) {
 	input := `part1فpart2`
-	Logger.Tracef("[ohmyglob: TestTokeniser_Separator] Testing \"%s\"", input)
 	tokeniser := newGlobTokeniser(strings.NewReader(input), &Options{
 		Separator:    'ف',
 		MatchAtStart: true,
@@ -112,7 +106,6 @@ func TestTokeniser_CustomSeparator(t *testing.T) {
 
 func TestTokeniser_Escaper(t *testing.T) {
 	input := `part1\*part2\\\\\foobar`
-	Logger.Tracef("[ohmyglob:TestTokeniser_Escaper] Testing \"%s\"", input)
 	tokeniser := newGlobTokeniser(strings.NewReader(input), DefaultOptions)
 
 	e := expectations{
@@ -182,7 +175,6 @@ func TestTokeniser_Combinations(t *testing.T) {
 	}
 
 	for input, e := range es {
-		Logger.Tracef("[ohmyglob:TestTokeniser_Combinations] Testing \"%s\"", input)
 		tokeniser := newGlobTokeniser(strings.NewReader(input), DefaultOptions)
 		testTokenRun(t, tokeniser, e)
 	}

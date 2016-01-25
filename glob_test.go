@@ -1,16 +1,10 @@
 package ohmyglob
 
 import (
-	"os"
 	"testing"
 
-	log "github.com/cihub/seelog"
 	"github.com/stretchr/testify/assert"
 )
-
-func init() {
-	Logger, _ = log.LoggerFromWriterWithMinLevel(os.Stderr, log.TraceLvl)
-}
 
 func TestSimpleGlob(t *testing.T) {
 	pattern := "foo/*/b?r"

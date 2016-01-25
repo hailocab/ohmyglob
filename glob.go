@@ -5,32 +5,16 @@ import (
 	"bytes"
 	"fmt"
 	"io"
-	"os"
 	"regexp"
 	"strings"
-
-	log "github.com/cihub/seelog"
 )
 
 var (
-	// Logger is used to log trace-level info; logging is completely disabled by default but can be changed by replacing
-	// this with a configured logger
-	Logger log.LoggerInterface
 	// Escaper is the character used to escape a meaningful character
 	Escaper = '\\'
 	// Runes that, in addition to the separator, mean something when they appear in the glob (includes Escaper)
 	expanders = []rune{'?', '*', '!', Escaper}
 )
-
-func init() {
-	if Logger == nil {
-		var err error
-		Logger, err = log.LoggerFromWriterWithMinLevel(os.Stderr, log.CriticalLvl) // seelog bug means we can't use log.Off
-		if err != nil {
-			panic(err)
-		}
-	}
-}
 
 type processedToken struct {
 	contents  *bytes.Buffer
@@ -204,7 +188,6 @@ func Compile(pattern string, options *Options) (Glob, error) {
 	}
 
 	regexString := regexBuf.String()
-	Logger.Tracef("[ohmyglob:Glob] Compiled \"%s\" to regex `%s` (negated: %v)", pattern, regexString, glob.negated)
 	re, err := regexp.Compile(regexString)
 	if err != nil {
 		return nil, err
